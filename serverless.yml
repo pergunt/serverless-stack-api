@@ -8,6 +8,10 @@ plugins:
   - serverless-bundle # Package our functions with Webpack
   - serverless-offline
   - serverless-dotenv-plugin # Load .env as environment variables
+# Create our resources with separate CloudFormation templates
+resources:
+  # API Gateway Errors
+  - ${file(resources/api-gateway-errors.yml)}
 
 provider:
   name: aws
@@ -46,6 +50,7 @@ functions:
           path: notes
           method: post
           authorizer: aws_iam
+          cors: true
   get:
     # Defines an HTTP API endpoint that calls the main function in get.js
     # - path: url path is /notes/{id}
@@ -56,6 +61,7 @@ functions:
           path: notes/{id}
           method: get
           authorizer: aws_iam
+          cors: true
   list:
     # Defines an HTTP API endpoint that calls the main function in list.js
     # - path: url path is /notes
@@ -66,6 +72,7 @@ functions:
           path: notes
           method: get
           authorizer: aws_iam
+          cors: true
   update:
     # Defines an HTTP API endpoint that calls the main function in update.js
     # - path: url path is /notes/{id}
@@ -76,6 +83,7 @@ functions:
           path: notes/{id}
           method: put
           authorizer: aws_iam
+          cors: true
   delete:
     # Defines an HTTP API endpoint that calls the main function in delete.js
     # - path: url path is /notes/{id}
@@ -86,6 +94,7 @@ functions:
           path: notes/{id}
           method: delete
           authorizer: aws_iam
+          cors: true
   billing:
     # Defines an HTTP API endpoint that calls the main function in billing.js
     # - path: url path is /billing
@@ -96,3 +105,4 @@ functions:
           path: billing
           method: post
           authorizer: aws_iam
+          cors: true
